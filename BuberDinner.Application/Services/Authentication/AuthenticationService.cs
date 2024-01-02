@@ -1,7 +1,9 @@
 using BuberDinner.Application.common.Errors;
 using BuberDinner.Application.common.interfaces.Authentication;
 using BuberDinner.Application.common.interfaces.Persistance;
+using BuberDinner.Domain.Common.Errors;
 using BuberDinner.Domain.Entities;
+using ErrorOr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +22,21 @@ namespace BuberDinner.Application.Services.Authentication
             _userRepository = userRepository;
         }
 
-        public AuthenticationResult Login(string email, string password)
+        public ErrorOr<AuthenticationResult> Login(string email, string password)
         {
             //. Validate the user exists
             if (_userRepository.GetUserByEmail(email) is not User user)
             {
-                throw new Exception("User with given email does not exist");
+                // throw new Exception("User with given email does not exist");
+                return Errors.Authentication.InvalidCredentials;
+
             }
 
             // 2.Validate the password is correct
             if(user.Password != password)
             {
-                throw new Exception("Invalid password");
+                // throw new Exception("Invalid password");
+                return Errors.Authentication.InvalidCredentials;
             }
 
             // 3. Create the token
@@ -42,12 +47,13 @@ namespace BuberDinner.Application.Services.Authentication
             );
         }
 
-        public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+        public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
         {
             // 1.Validate the user doesn't exiust
             if (_userRepository.GetUserByEmail(email) is not null)
             {
-                throw new DuplicateEmailException();
+                // throw new DuplicateEmailException();
+                return Errors.User.DulicateEmail;
             }
 
             // 2. create user(generate unique id) $ Persist to DB
