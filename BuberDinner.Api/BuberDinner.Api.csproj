@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>362e21e4-1e3b-4dc7-9f86-b99747a7b501</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BuberDiner.Infrastructure\BuberDiner.Infrastructure.csproj" />
+    <ProjectReference Include="..\BuberDinner.Application\BuberDinner.Application.csproj" />
+    <ProjectReference Include="..\BuberDinner.Contracts\BuberDinner.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
