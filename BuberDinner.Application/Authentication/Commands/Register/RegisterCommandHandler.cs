@@ -30,7 +30,7 @@ namespace BuberDinner.Application.Authentication.Commands.Register
             }
 
             // 2. create user(generate unique id) $ Persist to DB
-            var user = new User { FirstName = command.FirstName, LastName = command.LastName, Email = command.Email, Password = command.Passowrd };
+            var user = new User { FirstName = command.FirstName, LastName = command.LastName, Email = command.Email, Password = command.Password };
             _userRepository.Add(user);
 
             // create jwt token

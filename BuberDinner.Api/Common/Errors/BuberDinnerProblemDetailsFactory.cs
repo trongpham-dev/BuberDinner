@@ -36,7 +36,28 @@ namespace BuberDinner.Api.Common.Errors
 
         public override ValidationProblemDetails CreateValidationProblemDetails(HttpContext httpContext, ModelStateDictionary modelStateDictionary, int? statusCode = null, string? title = null, string? type = null, string? detail = null, string? instance = null)
         {
-            throw new NotImplementedException();
+            if(modelStateDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(modelStateDictionary));
+            }
+
+            statusCode ??= 400;
+
+            var problemDetails = new ValidationProblemDetails(modelStateDictionary)
+            {
+                Status = statusCode,
+                Type = type,
+                Detail = detail,
+                Instance = instance
+            };
+
+            if(title != null)
+            {
+                problemDetails.Title = title;
+            }
+
+            ApplyProblemDetailsDefaults(httpContext, problemDetails, statusCode.Value);
+            return problemDetails;
         }
 
         private void ApplyProblemDetailsDefaults(HttpContext httpContext, ProblemDetails problemDetails, int statusCode)
@@ -57,7 +78,11 @@ namespace BuberDinner.Api.Common.Errors
             }
 
             var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
-            problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+
+            if(errors is not null)
+            {
+                problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+            }
         }
     }
 }

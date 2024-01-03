@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace BuberDinner.Application.Authentication.Queries.Register
 {
-    public record LoginQuery(string Email, string Passowrd) : IRequest<ErrorOr<AuthenticationResult>>;
+    public record LoginQuery(string Email, string Password) : IRequest<ErrorOr<AuthenticationResult>>;
 }

@@ -31,7 +31,7 @@ namespace BuberDinner.Application.Authentication.Queries.Login
             }
 
             // 2.Validate the password is correct
-            if (user.Password != query.Passowrd)
+            if (user.Password != query.Password)
             {
                 // throw new Exception("Invalid password");
                 return Domain.Common.Errors.Errors.Authentication.InvalidCredentials;
