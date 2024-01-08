@@ -28,18 +28,19 @@ namespace BuberDinner.Domain.Menu
         public DateTime CreatedDateTime { get; }
         public DateTime UpdatedDateTime { get; }
 
-        private Menu(MenuId menuId, string name, string description, HostId hostId, DateTime createDateTime, DateTime updatedDateTime) : base(menuId)
+        private Menu(MenuId menuId, string name, string description, List<MenuSection> sections,  HostId hostId, DateTime createDateTime, DateTime updatedDateTime) : base(menuId)
         {
             Name = name;
             Description = description;
+            _sections = sections;
             HostId = hostId;
             CreatedDateTime = createDateTime;
             UpdatedDateTime = updatedDateTime;
         }
 
-        public static Menu Create(string name, string description, HostId hostId)
+        public static Menu Create(string name, string description, List<MenuSection> sections, HostId hostId)
         {
-            return new(MenuId.CreateUnique(), name, description, hostId, DateTime.UtcNow, DateTime.UtcNow);
+            return new(MenuId.CreateUnique(), name, description, sections, hostId, DateTime.UtcNow, DateTime.UtcNow);
         }
     }
 }

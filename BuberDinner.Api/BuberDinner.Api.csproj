@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BubberDinner.Domain\BuberDinner.Domain.csproj" />
     <ProjectReference Include="..\BuberDiner.Infrastructure\BuberDiner.Infrastructure.csproj" />
     <ProjectReference Include="..\BuberDinner.Application\BuberDinner.Application.csproj" />
     <ProjectReference Include="..\BuberDinner.Contracts\BuberDinner.Contracts.csproj" />

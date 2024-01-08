@@ -6,6 +6,7 @@ using BuberDiner.Infrastructure.Services;
 using BuberDinner.Application.common.interfaces.Authentication;
 using BuberDinner.Application.common.interfaces.Persistance;
 using BuberDinner.Application.common.interfaces.Services;
+using BuberDinner.Application.Common.Interfaces.Persistance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +20,17 @@ namespace BuberDinner.Application
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
         {
-            services.AddAuth(configuration);
+            services
+                .AddAuth(configuration)
+                .AddPersistance(configuration);
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            return services;
+        }
+
+        public static IServiceCollection AddPersistance(this IServiceCollection services, ConfigurationManager configuration)
+        {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
             return services;
         }
 

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BuberDinner.Domain.Common.Models
 {
-    internal class AggregateRoot
+    public class AggregateRoot<TId> : Entity<TId> where TId : notnull
     {
+        protected AggregateRoot(TId id) : base(id)
+        {
+
+        }
     }
 }
